@@ -6,20 +6,33 @@ from io import BytesIO
 class ImageLocalLoader:
     def __init__(self, root):
         self.root = root
-        self.canvas = tk.Canvas(root, borderwidth=0, highlightthickness=0)
+        self.canvas = tk.Canvas(root, bg="black", borderwidth=0, highlightthickness=0)
         self.canvas.pack(fill=tk.BOTH, expand=True)
     
     def load_image(self, image_path):
         try:
-            # Open the image from the response content
             image = Image.open(image_path)
-            # Resize the image to fit the screen size
+
             width, height = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
-            image = image.resize((width, height))
+
+            window_width = self.root.winfo_screenwidth()
+            window_height = self.root.winfo_screenheight()
+
+            # Calculate new image height to maintain aspect ratio
+            img_width, img_height = image.size
+            new_height = int(window_height)
+            new_width = int(img_width * (new_height / img_height))
+            # Resize the image
+            image = image.resize((new_width, new_height))
+
+            x = (window_width - image.width) // 2
+            y = (window_height - image.height) // 2
+
+            #image = image.resize((width, height))
             # Convert the image to a format that Tkinter can display
             photo = ImageTk.PhotoImage(image)
             # Display the image on the canvas
-            self.canvas.create_image(0, 0, anchor=tk.NW, image=photo)
+            self.canvas.create_image(x, y, anchor=tk.NW, image=photo)
             # Keep a reference to the photo to prevent garbage collection
             self.canvas.image = photo
 

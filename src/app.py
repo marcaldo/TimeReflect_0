@@ -21,7 +21,8 @@ root.config(cursor="none")
 
 # Load the image
 # image_loader.load_image("https://images.stockcake.com/public/0/9/6/096537ac-2343-4187-b150-e2fa00120af8/autumn-lake-view-stockcake.jpg")
-image_loader.load_image("C:/Users/marca/source/repos/TimeReflect/Pictures/20180620_152359.jpg")
+# image_loader.load_image("C:/Users/marca/source/repos/TimeReflect/Pictures/20180620_152359.jpg")
+image_loader.load_image("C:/Users/marca/source/repos/TimeReflect/Pictures/vertical.jpg")
 
 # Run the Tkinter event loop
 root.mainloop()
