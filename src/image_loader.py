@@ -8,8 +8,8 @@ class ImageLoader:
         self.root = root
         self.canvas = tk.Canvas(root, borderwidth=0, highlightthickness=0)
         self.canvas.pack(fill=tk.BOTH, expand=True)
-        self.error_label = tk.Label(root, fg="red", text="")
-        self.error_label.pack()
+        # self.error_label = tk.Label(root, fg="red", text="")
+        # self.error_label.pack()
     
     def load_image(self, image_url):
         try:

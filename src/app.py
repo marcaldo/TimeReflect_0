@@ -17,6 +17,8 @@ root.configure(bg="black")
 # Create an instance of ImageLoader
 image_loader = ImageLoader(root)
 
+root.config(cursor="none")
+
 # Load the image
 image_loader.load_image("https://images.stockcake.com/public/0/9/6/096537ac-2343-4187-b150-e2fa00120af8/autumn-lake-view-stockcake.jpg")
 
