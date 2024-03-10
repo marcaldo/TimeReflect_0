@@ -11,7 +11,7 @@ class VideoPlayer:
         self.cap = cv2.VideoCapture(video_path)
         # self.canvas = tk.Canvas(root, width=root.winfo_screenwidth(), height=root.winfo_screenheight())
         self.canvas.pack(fill=tk.BOTH, expand=True, side=tk.TOP)  # Fill the entire window and position at the top
-        self.canvas.lift(self.root)
+        # self.canvas.lift(self.root)
         self.play_video()
 
     def play_video(self):

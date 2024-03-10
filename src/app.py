@@ -25,7 +25,7 @@ root.config(cursor="none")
 # image_loader.load_image("C:/Users/marca/source/repos/TimeReflect/Pictures/20180620_152359.jpg")
 #image_loader.load_image("C:/Users/marca/source/repos/TimeReflect/Pictures/vertical.jpg")
 
-video_player = VideoPlayer(root, "C:/Users/marca/source/repos/TimeReflect/Pictures/summerSnow.mp4")
+video_player = VideoPlayer(root, "C:/Users/marca/source/repos/TimeReflect/Pictures/fire.mp4")
 
 # Run the Tkinter event loop
 root.mainloop()
