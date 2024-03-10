@@ -9,8 +9,9 @@ class VideoPlayer:
         self.canvas.pack()
         self.video_path = video_path
         self.cap = cv2.VideoCapture(video_path)
-        self.canvas = tk.Canvas(root, width=root.winfo_screenwidth(), height=root.winfo_screenheight())
-        self.canvas.pack(fill=tk.BOTH, expand=True)
+        # self.canvas = tk.Canvas(root, width=root.winfo_screenwidth(), height=root.winfo_screenheight())
+        self.canvas.pack(fill=tk.BOTH, expand=True, side=tk.TOP)  # Fill the entire window and position at the top
+        self.canvas.lift(self.root)
         self.play_video()
 
     def play_video(self):
@@ -25,11 +26,14 @@ class VideoPlayer:
                 new_width = int(width * ratio)
                 new_height = int(height * ratio)
                 frame = cv2.resize(frame, (new_width, new_height))
+                 # Calculate coordinates to center the video on the canvas
+                x = (self.canvas.winfo_width() - new_width) // 2
+                y = (self.canvas.winfo_height() - new_height) // 2
                 # Convert the frame to a format that PIL can display
                 image = Image.fromarray(frame)
                 photo = ImageTk.PhotoImage(image)
                 # Display the frame on the canvas
-                self.canvas.create_image(0, 0, anchor=tk.NW, image=photo)
+                self.canvas.create_image(x, y, anchor=tk.NW, image=photo)
                 self.canvas.image = photo
             self.root.after(30, self.play_video)
         else:

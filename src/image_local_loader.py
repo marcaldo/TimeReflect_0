@@ -25,7 +25,7 @@ class ImageLocalLoader:
             photo = ImageTk.PhotoImage(image)
 
             self.canvas.create_image(x, y, anchor=tk.NW, image=photo)
-            
+
             # Keep a reference to the photo to prevent garbage collection
             self.canvas.image = photo
 
