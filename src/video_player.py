@@ -29,7 +29,7 @@ class VideoPlayer:
                 new_width = int(width * ratio)
                 new_height = int(height * ratio)
                 frame = cv2.resize(frame, (new_width, new_height))
-                 # Calculate coordinates to center the video on the canvas
+                # Calculate coordinates to center the video on the canvas
                 x = (self.canvas.winfo_width() - new_width) // 2
                 y = (self.canvas.winfo_height() - new_height) // 2
                 # Convert the frame to a format that PIL can display
@@ -38,6 +38,10 @@ class VideoPlayer:
                 # Display the frame on the canvas
                 self.canvas.create_image(x, y, anchor=tk.NW, image=photo)
                 self.canvas.image = photo
-            self.root.after(30, self.play_video)
+            else:
+                # Reset the video to the beginning
+                self.cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
         else:
             print("Error: Could not open video file.")
+        # Schedule the next frame update
+        self.root.after(30, self.play_video)
