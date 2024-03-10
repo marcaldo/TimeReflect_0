@@ -5,7 +5,10 @@ from PIL import Image, ImageTk
 class VideoPlayer:
     def __init__(self, root, video_path):
         self.root = root
-        self.canvas = tk.Canvas(root)
+        # self.canvas = tk.Canvas(root)
+        self.canvas = tk.Canvas(root, bg="black", borderwidth=0, highlightthickness=0)
+
+        # self.canvas.configure(bg="black")
         self.canvas.pack()
         self.video_path = video_path
         self.cap = cv2.VideoCapture(video_path)
