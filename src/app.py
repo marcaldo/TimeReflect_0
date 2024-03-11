@@ -13,7 +13,7 @@ root.config(cursor="none")
 
 
 albumsPath = "C:/Users/marca/source/repos/TimeReflect/Albums"
-albumName = "album1"
+albumName = "album 2"
 fileName = "dragon.MP4"
 pictureDisplaySeconds = 5
 
