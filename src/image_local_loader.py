@@ -29,6 +29,7 @@ class ImageLocalLoader:
             # Keep a reference to the photo to prevent garbage collection
             self.canvas.image = photo
 
+
         except Exception as e:
             # Display an error message if an exception occurs
             # self.error_label = tk.Label(self, fg="red", text="")
