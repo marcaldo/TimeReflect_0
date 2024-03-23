@@ -6,10 +6,21 @@ class ImageLocalLoader:
         self.root = root
         self.canvas = tk.Canvas(root, bg="black", borderwidth=0, highlightthickness=0)
         self.canvas.pack(fill=tk.BOTH, expand=True)
-    
+        self.photo = None  # Store the PhotoImage object as an instance variable
+        self.images = []  # Initialize the images attribute here
+
     def load_image(self, image_path):
         try:
-            self.canvas.delete(tk.ALL) 
+            # Delete previous image if it exists
+            # if self.photo:
+            #     self.canvas.delete(self.photo)
+
+            # self.canvas.delete("all")
+            
+            self.clear_canvas()
+
+            print("Canvas width:", self.canvas.winfo_width())
+            print("Canvas height:", self.canvas.winfo_height())
 
             image = Image.open(image_path)
 
@@ -24,21 +35,19 @@ class ImageLocalLoader:
             x = (window_width - image.width) // 2
             y = (window_height - image.height) // 2
 
+            # Create a new PhotoImage object
+            self.photo = ImageTk.PhotoImage(image)
 
-            photo = ImageTk.PhotoImage(image)
+            self.canvas.create_image(x, y, anchor=tk.NW, image=self.photo)
 
-            # print(str(image.width) + ", " + str(image.height))
-            # print(str(x) + ", " + str(y))
-
-            self.canvas.create_image(x, y, anchor=tk.NW, image=photo)
-
-            # Keep a reference to the photo to prevent garbage collection
-            self.canvas.image = photo
-
+            self.canvas.image = self.photo
 
         except Exception as e:
-            # Display an error message if an exception occurs
-            # self.error_label = tk.Label(self, fg="red", text="")
-            #self.error_label.pack()
-            self.error_label.config(text=f"An error occurred: {str(e)}")
-            self.error_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)  # Position the error label over the canvas
+            # Handle exceptions
+            print(f"An error occurred: {str(e)}")
+
+    def clear_canvas(self):
+            # Clear the canvas by deleting all items and removing references to the images
+            for image in self.images:
+                self.canvas.delete(image)
+            self.images.clear()
