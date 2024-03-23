@@ -22,6 +22,10 @@ class ImageLocalLoader:
             x = (window_width - image.width) // 2
             y = (window_height - image.height) // 2
 
+            # print(str(x) + ", " + str(y))
+            # print(str(image.width) + ", " + str(image.height))
+            print(image_path)
+
             photo = ImageTk.PhotoImage(image)
 
             self.canvas.create_image(x, y, anchor=tk.NW, image=photo)

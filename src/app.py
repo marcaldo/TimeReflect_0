@@ -13,8 +13,7 @@ root.config(cursor="none")
 
 
 albumsPath = "C:/Users/marca/source/repos/TimeReflect/Albums"
-albumName = "album 2"
-fileName = "dragon.MP4"
+albumName = "album3"
 pictureDisplaySeconds = 5
 
 albums = AlbumStorage()
@@ -25,26 +24,33 @@ fileNames = albums.get_file_names(oneAlbumPath)
 
 
 future_time = datetime.now()
+current_time = datetime.now()
 
-while(True):
-    for fileName in fileNames:
-        isVideo = fileName.lower().endswith(".mp4")
-        fileFullName = "/".join([albumsPath, albumName, fileName])
+lastNdx = len(fileNames)
+ndx = 0
 
-        current_time = datetime.now()
-        if(current_time >= future_time):
-            print(fileFullName)
-            future_time = datetime.now() + timedelta(seconds=pictureDisplaySeconds)
+def move():
+    global ndx
+    if(ndx == lastNdx):
+        ndx = 0
 
-        if isVideo:
-            video_player = VideoPlayer(root, fileFullName)
-        else:
-            image_loader = ImageLocalLoader(root)
-            image_loader.load_image(fileFullName)
+    fileName = fileNames[ndx]
+    isVideo = fileName.lower().endswith(".mp4")
+    fileFullName = "/".join([albumsPath, albumName, fileName])
 
-        root.mainloop()
+    if isVideo:
+        video_player = VideoPlayer(root, fileFullName)
+    else:
+        image_loader = ImageLocalLoader(root)
+        image_loader.load_image(fileFullName)
+
+    ndx = ndx + 1
+
+    root.after(3000, move) 
+
+move()
+root.mainloop()
         
-        time.sleep(1)
 
 
 
