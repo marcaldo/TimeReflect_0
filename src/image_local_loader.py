@@ -9,6 +9,8 @@ class ImageLocalLoader:
     
     def load_image(self, image_path):
         try:
+            self.canvas.delete(tk.ALL) 
+
             image = Image.open(image_path)
 
             window_width = self.root.winfo_screenwidth()
@@ -22,11 +24,11 @@ class ImageLocalLoader:
             x = (window_width - image.width) // 2
             y = (window_height - image.height) // 2
 
-            # print(str(x) + ", " + str(y))
-            # print(str(image.width) + ", " + str(image.height))
-            print(image_path)
 
             photo = ImageTk.PhotoImage(image)
+
+            # print(str(image.width) + ", " + str(image.height))
+            # print(str(x) + ", " + str(y))
 
             self.canvas.create_image(x, y, anchor=tk.NW, image=photo)
 
