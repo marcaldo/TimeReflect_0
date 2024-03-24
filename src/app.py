@@ -17,9 +17,22 @@ def load_images(fileNames):
     images = []
     for fileName in fileNames:
         try:
+
             path = "/".join([albumsPath, albumName, fileName])
-            image = ImageTk.PhotoImage(Image.open(path))
-            images.append(image)
+            image = Image.open(path)
+
+
+
+            window_height = root.winfo_screenheight()
+            img_width, img_height = image.size
+            new_height = int(window_height)
+            new_width = int(img_width * (new_height / img_height))
+            image = image.resize((new_width, new_height))
+
+            photo = ImageTk.PhotoImage(image)
+
+
+            images.append(photo)
         except FileNotFoundError as e:
             print("Error loading image from", path, ":", e)
     return images
