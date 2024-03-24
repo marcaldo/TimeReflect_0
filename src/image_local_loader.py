@@ -4,8 +4,8 @@ from PIL import Image, ImageTk
 class ImageLocalLoader:
     def __init__(self, root):
         self.root = root
-        self.canvas = tk.Canvas(root, bg="black", borderwidth=0, highlightthickness=0)
-        self.canvas.pack(fill=tk.BOTH, expand=True)
+        self.label = tk.Canvas(root, bg="black", borderwidth=0, highlightthickness=0)
+        self.label.pack(fill=tk.BOTH, expand=True)
         self.photo = None  # Store the PhotoImage object as an instance variable
         self.images = []  # Initialize the images attribute here
         
@@ -23,8 +23,8 @@ class ImageLocalLoader:
 
             image = Image.open(image_path)
 
-            print("Canvas width:", self.canvas.winfo_width())
-            print("Canvas height:", self.canvas.winfo_height())
+            print("Canvas width:", self.label.winfo_width())
+            print("Canvas height:", self.label.winfo_height())
 
             window_width = self.root.winfo_screenwidth()
             window_height = self.root.winfo_screenheight()
@@ -40,9 +40,11 @@ class ImageLocalLoader:
             # Create a new PhotoImage object
             self.photo = ImageTk.PhotoImage(image)
 
-            self.canvas.create_image(x, y, anchor=tk.NW, image=self.photo)
+            # self.label.create_image(x, y, anchor=tk.NW, image=self.photo)
+            self.label.config(x, y, anchor=tk.NW, image=self.photo)
+            
 
-            self.canvas.image = self.photo
+            self.label.image = self.photo
 
         except Exception as e:
             # Handle exceptions
