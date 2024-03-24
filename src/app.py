@@ -4,24 +4,16 @@ from album_storage import AlbumStorage
 
 # adjust window
 root = tk.Tk()
-# window_width = root.winfo_screenwidth()
-# window_height = root.winfo_screenheight()
-# wXh = str(window_width) + "x" + str(window_height) 
-# root.geometry(wXh)
-
-root.attributes('-fullscreen', True)  # Maximize window
-root.config(cursor='none')  # Hide mouse pointer
+root.attributes('-fullscreen', True) 
+root.config(cursor='none', bg='black')  
 
 # Function to load images from file paths
 def load_images(fileNames):
     images = []
     for fileName in fileNames:
         try:
-
             path = "/".join([albumsPath, albumName, fileName])
             image = Image.open(path)
-
-
 
             window_height = root.winfo_screenheight()
             img_width, img_height = image.size
@@ -30,7 +22,6 @@ def load_images(fileNames):
             image = image.resize((new_width, new_height))
 
             photo = ImageTk.PhotoImage(image)
-
 
             images.append(photo)
         except FileNotFoundError as e:
