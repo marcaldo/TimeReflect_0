@@ -17,12 +17,16 @@ class ImageLocalLoader:
 
             # self.canvas.delete("all")
             
-            self.clear_canvas()
-
-            print("Canvas width:", self.canvas.winfo_width())
-            print("Canvas height:", self.canvas.winfo_height())
+            # self.clear_canvas()
 
             image = Image.open(image_path)
+
+            self.canvas_width = self.canvas.winfo_width()
+            self.canvas_height = self.canvas.winfo_height()
+
+            print(image_path)
+            print("Canvas width:", self.canvas.winfo_width())
+            print("Canvas height:", self.canvas.winfo_height())
 
             window_width = self.root.winfo_screenwidth()
             window_height = self.root.winfo_screenheight()
