@@ -26,9 +26,11 @@ class AlbumStorage:
     def get_file_names(self, album_path):
         file_names = []
         if os.path.exists(album_path) and os.path.isdir(album_path):
-            for entry in os.listdir(album_path):
-                if os.path.isfile(os.path.join(album_path, entry)):
-                    file_names.append(entry)
+            for file_name in os.listdir(album_path):
+                if file_name.lower().endswith((".jpg", "jpeg")) and os.path.isfile(os.path.join(album_path, file_name)):
+                    file_names.append(file_name)
         else:
             print("Error: Folder path does not exist or is not a directory.")
         return file_names
+    
+    
