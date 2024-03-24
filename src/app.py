@@ -1,5 +1,5 @@
 import tkinter as tk
-from PIL import Image, ImageTk, ExifTags
+from PIL import Image, ImageTk, ImageDraw, ImageFont, ExifTags
 from album_storage import AlbumStorage
 
 # adjust window
@@ -28,35 +28,58 @@ def load_images(fileNames):
             path = "/".join([albumsPath, albumName, fileName])
             image = Image.open(path)
 
+            image = RotateImage(image)
+            image = ResizeImage(image)
 
-            # Check if the image is sideways (rotated)
-            try:
-                for orientation in ExifTags.TAGS.keys():
-                    if ExifTags.TAGS[orientation] == 'Orientation':
-                        break
-                exif = dict(image._getexif().items())
-
-                if exif[orientation] == 3:
-                    image = image.rotate(180, expand=True)
-                elif exif[orientation] == 6:
-                    image = image.rotate(270, expand=True)
-                elif exif[orientation] == 8:
-                    image = image.rotate(90, expand=True)
-            except Exception:
-                pass
-
-            window_height = root.winfo_screenheight()
-            img_width, img_height = image.size
-            new_height = int(window_height)
-            new_width = int(img_width * (new_height / img_height))
-            image = image.resize((new_width, new_height))
-
-            photo = ImageTk.PhotoImage(image)
-
+            # Add text overlay
+            text = "Your Text Here"  # Change this to your desired text
+            image_with_text = overlay_text(image, text, font)
+            
+            photo = ImageTk.PhotoImage(image_with_text)
             images.append(photo)
+
         except FileNotFoundError as e:
             print("Error loading image from", path, ":", e)
     return images
+
+def ResizeImage(image):
+    window_height = root.winfo_screenheight()
+    img_width, img_height = image.size
+    new_height = int(window_height)
+    new_width = int(img_width * (new_height / img_height))
+    image = image.resize((new_width, new_height))
+    return image
+
+def RotateImage(image):
+    # Check if the image is sideways (rotated)
+    try:
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+        exif = dict(image._getexif().items())
+
+        if exif[orientation] == 3:
+            image = image.rotate(180, expand=True)
+        elif exif[orientation] == 6:
+            image = image.rotate(270, expand=True)
+        elif exif[orientation] == 8:
+            image = image.rotate(90, expand=True)
+    except Exception:
+        pass
+    return image
+
+# Load font for the text
+font_size = 50
+font = ImageFont.truetype("arial.ttf", font_size)
+
+def overlay_text(image, text, font): 
+    overlay = Image.new('RGBA', image.size, (255, 255, 255, 0))
+    draw = ImageDraw.Draw(overlay)
+    text_position = (10, 10)  # Position at top-left corner with 10 pixels padding
+    draw.text(text_position, text, fill="white", font=font)
+    return Image.alpha_composite(image.convert('RGBA'), overlay)
+
+
 
 
 # Load images
