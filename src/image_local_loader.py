@@ -8,6 +8,7 @@ class ImageLocalLoader:
         self.canvas.pack(fill=tk.BOTH, expand=True)
         self.photo = None  # Store the PhotoImage object as an instance variable
         self.images = []  # Initialize the images attribute here
+        
 
     def load_image(self, image_path):
         try:
@@ -18,6 +19,7 @@ class ImageLocalLoader:
             # self.canvas.delete("all")
             
             # self.clear_canvas()
+
 
             image = Image.open(image_path)
 
